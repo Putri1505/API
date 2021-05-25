@@ -47,15 +47,18 @@ namespace API.Repository
         }
 
 
-        public int Update(Person person)
+        public int Update(Person person, int nik)
         {
-            var tempPerson = conn.Persons.Find(person.NIK);
-            if (tempPerson != null)
+            try
             {
+                conn.Update(person);
+                int result = conn.SaveChanges();
+                return result;
             }
-            conn.Update(person);
-            var result = conn.SaveChanges();
-            return result;  
+            catch (DbUpdateConcurrencyException)
+            {
+                return 0;
+            } 
         }
     }
 }

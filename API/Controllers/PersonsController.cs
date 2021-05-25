@@ -67,14 +67,18 @@ namespace API.Controllers
         [HttpPut]
         public ActionResult Update(Person person)
         {
-            var get = personRepository.Update(person);
+            if (person.NIK == 0)
+            {
+                return BadRequest("data gagal diupdate nik harus di input");
+            }
+            var get = personRepository.Update(person, person.NIK);
             if(get > 0)
             {
                 return Ok("Update Berhasil");
             }
             else
             {
-                return BadRequest($"Data NIK {person.NIK} Tidak Tersedia");
+                return BadRequest("Data Gagal diupdate");
             }
         }
     }

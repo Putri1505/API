@@ -11,7 +11,7 @@ namespace API.Repository.Interface
         IEnumerable<Person> Get();
         Person Get(int nik);
         int Insert(Person person);
-        int Update(Person person);
+        int Update(Person person, int nik);
         int Delete(int nik);
 
 
