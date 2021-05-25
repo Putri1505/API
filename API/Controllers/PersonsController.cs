@@ -70,7 +70,7 @@ namespace API.Controllers
             var get = personRepository.Update(person);
             if(get > 0)
             {
-                return Ok("Update Berhasil");
+                return Ok("Update Berhasi");
             }
             else
             {
