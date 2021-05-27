@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace API.Repository
 {
-    public class PersonRepository : IPersonRepository
+    public class PersonRepository_add : IPersonRepository
     {
         private readonly MyContext conn;
-        public PersonRepository(MyContext conn)
+        public PersonRepository_add(MyContext conn)
         {
             this.conn = conn;
         }
@@ -46,12 +46,11 @@ namespace API.Repository
             return result;
         }
 
-
         public int Update(Person person, int nik)
         {
             try
             {
-                conn.Update(person);
+                conn.Entry(person).State = EntityState.Modified;
                 int result = conn.SaveChanges();
                 return result;
             }

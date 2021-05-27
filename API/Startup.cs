@@ -13,7 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.EntityFrameworkCore;
-using API.Repository;
+using API.Repository.Data;
 
 namespace API
 {

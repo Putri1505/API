@@ -13,8 +13,5 @@ namespace API.Repository.Interface
         int Insert(Person person);
         int Update(Person person, int nik);
         int Delete(int nik);
-
-
-
     }
 }

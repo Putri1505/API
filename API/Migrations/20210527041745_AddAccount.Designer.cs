@@ -4,14 +4,16 @@ using API.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20210527041745_AddAccount")]
+    partial class AddAccount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,7 +31,7 @@ namespace API.Migrations
 
                     b.HasKey("NIK");
 
-                    b.ToTable("TB_T_Account");
+                    b.ToTable("TB_M_Account");
                 });
 
             modelBuilder.Entity("API.Models.Education", b =>
@@ -45,14 +47,12 @@ namespace API.Migrations
                     b.Property<string>("GPA")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Universityid")
+                    b.Property<int>("University_id")
                         .HasColumnType("int");
 
                     b.HasKey("id");
 
-                    b.HasIndex("Universityid");
-
-                    b.ToTable("TB_T_Education");
+                    b.ToTable("Educations");
                 });
 
             modelBuilder.Entity("API.Models.Person", b =>
@@ -88,16 +88,16 @@ namespace API.Migrations
             modelBuilder.Entity("API.Models.Profiling", b =>
                 {
                     b.Property<int>("NIK")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("Educationid")
+                    b.Property<int>("Education_id")
                         .HasColumnType("int");
 
                     b.HasKey("NIK");
 
-                    b.HasIndex("Educationid");
-
-                    b.ToTable("TB_T_Profiling");
+                    b.ToTable("Profilings");
                 });
 
             modelBuilder.Entity("API.Models.University", b =>
@@ -112,7 +112,7 @@ namespace API.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("TB_T_University");
+                    b.ToTable("Universities");
                 });
 
             modelBuilder.Entity("API.Models.Account", b =>
@@ -126,50 +126,9 @@ namespace API.Migrations
                     b.Navigation("Person");
                 });
 
-            modelBuilder.Entity("API.Models.Education", b =>
-                {
-                    b.HasOne("API.Models.University", "University")
-                        .WithMany("Education")
-                        .HasForeignKey("Universityid");
-
-                    b.Navigation("University");
-                });
-
-            modelBuilder.Entity("API.Models.Profiling", b =>
-                {
-                    b.HasOne("API.Models.Education", "Education")
-                        .WithMany("Profiling")
-                        .HasForeignKey("Educationid");
-
-                    b.HasOne("API.Models.Account", "Account")
-                        .WithOne("Profiling")
-                        .HasForeignKey("API.Models.Profiling", "NIK")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
-
-                    b.Navigation("Education");
-                });
-
-            modelBuilder.Entity("API.Models.Account", b =>
-                {
-                    b.Navigation("Profiling");
-                });
-
-            modelBuilder.Entity("API.Models.Education", b =>
-                {
-                    b.Navigation("Profiling");
-                });
-
             modelBuilder.Entity("API.Models.Person", b =>
                 {
                     b.Navigation("Account");
-                });
-
-            modelBuilder.Entity("API.Models.University", b =>
-                {
-                    b.Navigation("Education");
                 });
 #pragma warning restore 612, 618
         }

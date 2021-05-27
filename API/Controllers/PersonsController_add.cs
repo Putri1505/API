@@ -12,10 +12,10 @@ namespace API.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    public class PersonsController : ControllerBase
+    public class PersonsController_add : ControllerBase
     {
-        private readonly PersonRepository personRepository;
-        public PersonsController(PersonRepository personRepository)
+        private readonly PersonRepository_add personRepository;
+        public PersonsController_add(PersonRepository_add personRepository)
         {
             this.personRepository = personRepository;
 
@@ -24,13 +24,13 @@ namespace API.Controllers
         public ActionResult Post(Person person)
         {
             var post = personRepository.Insert(person);
-            if (post > 0)
+            if (post != null)
             {
-                return Ok();
+                return Ok("Data Berhasil");
             }
             else
             {
-                return NotFound();
+                return BadRequest("Data Tidak Berhasil");
             }
         }
         [HttpGet]
@@ -39,9 +39,9 @@ namespace API.Controllers
             List<Person> get = personRepository.Get().ToList();
             if (get.Count > 0)
             {
-                return Ok(get);
+                return Ok("Data Behasil");
             }
-            return NotFound("Data Tidak Tersedia");
+            return BadRequest("Data Tidak Tersedia");
             
         }
         [HttpGet("{nik}")]
@@ -81,5 +81,6 @@ namespace API.Controllers
                 return BadRequest("Data Gagal diupdate");
             }
         }
+       
     }
 }
