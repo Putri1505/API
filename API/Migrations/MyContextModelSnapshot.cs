@@ -34,7 +34,7 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.Education", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Educationid")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -45,10 +45,10 @@ namespace API.Migrations
                     b.Property<string>("GPA")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Universityid")
+                    b.Property<int>("Universityid")
                         .HasColumnType("int");
 
-                    b.HasKey("id");
+                    b.HasKey("Educationid");
 
                     b.HasIndex("Universityid");
 
@@ -90,7 +90,7 @@ namespace API.Migrations
                     b.Property<int>("NIK")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Educationid")
+                    b.Property<int>("Educationid")
                         .HasColumnType("int");
 
                     b.HasKey("NIK");
@@ -102,15 +102,15 @@ namespace API.Migrations
 
             modelBuilder.Entity("API.Models.University", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("Universityid")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
+                    b.Property<string>("UniversityName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.HasKey("Universityid");
 
                     b.ToTable("TB_T_University");
                 });
@@ -130,7 +130,9 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.University", "University")
                         .WithMany("Education")
-                        .HasForeignKey("Universityid");
+                        .HasForeignKey("Universityid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("University");
                 });
@@ -139,7 +141,9 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.Education", "Education")
                         .WithMany("Profiling")
-                        .HasForeignKey("Educationid");
+                        .HasForeignKey("Educationid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("API.Models.Account", "Account")
                         .WithOne("Profiling")

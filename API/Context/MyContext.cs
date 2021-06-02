@@ -10,8 +10,6 @@ namespace API.Context
 {
     public class MyContext : DbContext
     {
-        internal object entities;
-
         public MyContext()
         {
         }
@@ -45,9 +43,10 @@ namespace API.Context
                 .HasOne(ed => ed.University)
                 .WithMany(u => u.Education);
         }
-        
-            
-        
+
+
+
+
 
     }
 

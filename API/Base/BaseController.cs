@@ -67,7 +67,7 @@ namespace API.Base
                     return Ok("Berhasil Terhapus");
                 }
             }
-            catch (ArgumentNullException e)
+            catch (ArgumentNullException)
             {
                 return NotFound($"Data NIK {key} Tidak Tersedia");
             }
