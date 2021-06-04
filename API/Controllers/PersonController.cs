@@ -2,6 +2,7 @@
 using API.Models;
 using API.Repository.Data;
 using API.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,38 +17,27 @@ namespace API.Controllers
     public class PersonController : BaseController<Person, PersonRepository, int>
     {
         private readonly PersonRepository personRepository;
+        //private readonly IJWTAuthenticationManager jWTAuthenticationManager;
 
         public PersonController(PersonRepository person) : base(person)
         {
             this.personRepository = person;
+            //this.jWTAuthenticationManager = jWTAuthenticationManager;
         }
         [HttpPost("Register")]
         public ActionResult Register(RegisterVM registerVM)
         {
-            if (ModelState.IsValid)
+            var data = personRepository.Register(registerVM);
+            if (data > 0)
             {
-                try
-                {
-                    var data = personRepository.Register(registerVM);
-                    if (data > 0)
-                    {
-                        return Ok("Register Berhasil");
-                    }
-                    else
-                    {
-                        return StatusCode(500, new { status = "Internal server error..." });
-                    }
-                }
-                catch (DbUpdateException)
-                {
-                    return BadRequest($"NIK {registerVM.NIK} Sudah ada");
-                }
+                return Ok("Register Berhasil");
             }
             else
             {
-                return BadRequest("Data input tidak valid");
+                return BadRequest("register tidak berhasil");
             }
         }
+        [Authorize]
         [HttpGet("GetAllProfile")]
         public ActionResult GetAllProfile()
         {
@@ -61,6 +51,7 @@ namespace API.Controllers
                 return NotFound("Data tidak Ada");
             }
         }
+        [Authorize]
         [HttpGet("GetProfileById/{nik}")]
         public ActionResult GetProfileById(int nik)
         {
@@ -77,16 +68,13 @@ namespace API.Controllers
         [HttpPost("Login")]
         public ActionResult Login(LoginVM loginVM)
         {
-            if (ModelState.IsValid)
-            {
                 var data = personRepository.LoginVM(loginVM);
-                if (data == 1)
+                if (data > 0 )
                 {
-                    return Ok("Login Berhasil");
+                    return Ok($"Login Berhasil \n Token : {personRepository.GenerateToken(loginVM)}");
                 }
-                return BadRequest("Login Gagal");
-            }
-            return BadRequest("Login Gagal");
+                return BadRequest("Email atau Password tidak sesuai");
+            
         }
     }
 

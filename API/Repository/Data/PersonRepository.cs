@@ -7,15 +7,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BCrypt.Net;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
 
 namespace API.Repository.Data
 {
     public class PersonRepository : GeneralRepository<MyContext, Person, int>
     {
         private readonly MyContext myContext;
-        public PersonRepository(MyContext myContext) : base(myContext)
+        public IConfiguration configuration;
+
+        public PersonRepository(MyContext myContext, IConfiguration configuration) : base(myContext)
         {
             this.myContext = myContext;
+            this.configuration = configuration;
+            
         }
         public int Register(RegisterVM registerVM)
         {
@@ -55,6 +65,13 @@ namespace API.Repository.Data
                     Educationid = education.Educationid
                 };
                 myContext.Add(profiling);
+                result = myContext.SaveChanges();
+                var accountrole = new AccountRole()
+                {
+                    Roleid = 3,
+                    NIK = account.NIK
+                };
+                myContext.Add(accountrole);
                 result = myContext.SaveChanges();
                 return result;
             } 
@@ -134,6 +151,30 @@ namespace API.Repository.Data
             {
                 return BCrypt.Net.BCrypt.Verify(password,correctHash);
             }
+        }
+        public string GenerateToken(LoginVM loginVM)
+        {
+            var cek = myContext.Persons.Single(p => p.Email.Equals(loginVM.Email));
+            var cek1 = myContext.AccountRoles.Single(p => p.NIK == cek.NIK);
+            var claims = new[] {
+                new Claim(JwtRegisteredClaimNames.Sub, configuration["Jwt:Subject"]),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
+                new Claim("Email", loginVM.Email.ToString()),
+                new Claim("RoleName", cek1.Role.NameRole.ToString()),
+            };
+            var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["Jwt:Key"]));
+            var signin = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(
+                configuration["Jwt:Issuer"],
+                configuration["Jwt:Audience"],
+                claims, 
+                expires: DateTime.UtcNow.AddDays(1),
+                signingCredentials: signin);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+
+
         }
     }
 }

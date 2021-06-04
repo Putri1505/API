@@ -19,7 +19,7 @@ namespace API.ViewModel
         public string Degree { get; set; }
         public string GPA { get; set; }
         public int Universityid { get; set; }
-
+        public int Roleid { get; set; }
 
     }
 }
