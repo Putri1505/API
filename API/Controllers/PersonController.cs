@@ -3,6 +3,7 @@ using API.Models;
 using API.Repository.Data;
 using API.ViewModel;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -37,7 +38,18 @@ namespace API.Controllers
                 return BadRequest("register tidak berhasil");
             }
         }
-        [Authorize]
+        [HttpPost("Login")]
+        public ActionResult Login(LoginVM loginVM)
+        {
+            var data = personRepository.LoginVM(loginVM);
+            if (data > 0)
+            {
+                return Ok($"Login Berhasil \n Token : {personRepository.GenerateToken(loginVM)}");
+            }
+            return BadRequest("Email atau Password tidak sesuai");
+
+        }
+        [Authorize(Roles = "Admin, Karyawan")]
         [HttpGet("GetAllProfile")]
         public ActionResult GetAllProfile()
         {
@@ -51,8 +63,9 @@ namespace API.Controllers
                 return NotFound("Data tidak Ada");
             }
         }
-        [Authorize]
+        [Authorize(Roles = "Admin, Karyawan")]
         [HttpGet("GetProfileById/{nik}")]
+        [EnableCors("AllowOrigin")]
         public ActionResult GetProfileById(int nik)
         {
             var get = personRepository.GetProfileById(nik);
@@ -64,17 +77,6 @@ namespace API.Controllers
             {
                 return NotFound("Data tidak Ada");
             }
-        }
-        [HttpPost("Login")]
-        public ActionResult Login(LoginVM loginVM)
-        {
-                var data = personRepository.LoginVM(loginVM);
-                if (data > 0 )
-                {
-                    return Ok($"Login Berhasil \n Token : {personRepository.GenerateToken(loginVM)}");
-                }
-                return BadRequest("Email atau Password tidak sesuai");
-            
         }
     }
 

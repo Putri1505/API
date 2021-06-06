@@ -161,7 +161,7 @@ namespace API.Repository.Data
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                 new Claim("Email", loginVM.Email.ToString()),
-                new Claim("RoleName", cek1.Role.NameRole.ToString()),
+                new Claim(ClaimTypes.Role , cek1.Role.NameRole.ToString()),
             };
             var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["Jwt:Key"]));
             var signin = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

@@ -14,7 +14,7 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    //[Authorize(Roles ="Admin")]
     public class RoleController : BaseController<Role, RoleRepository, int>
     {
         public readonly RoleRepository roleRepository;
