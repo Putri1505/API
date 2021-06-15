@@ -1,8 +1,7 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
-
-
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
@@ -12,7 +11,7 @@
         url: "https://localhost:44368/API/person/GetAllProfile",
         success: function (result) {
             console.log(result);
-        } 
+        }
     })
 
 </script>

@@ -1,0 +1,117 @@
+﻿@{
+    ViewData["title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
+}
+@*<h1>Hello World!</h1>
+    <div class="navigasi">
+        <h2>Contoh Navigasi</h2>
+        <p>Ini contoh paragraf</p>
+        <a href="#">content</a>
+        <a href="#">content</a>
+        <a href="#">content</a>
+    </div>
+    <section id="section">
+        <p>Ini paragraf</p>
+    </section>*@
+
+@*<div class="satu"></div>
+    <div class="dua"></div>
+    <div class="tiga"></div>*@
+@*<h1 id="title" style="color:blue">Title Here </h1>
+    <div id="container">
+        <section id="a">
+            <div id="b">
+                <p id="a">Paragraf 1</p>
+            </div>
+            <a href="#">link</a>
+            <p class="paragraf hanya ini"> Paragraf 2</p>
+            <p class="paragraf"> Paragraf 3</p>
+        </section>
+        <section id="b">
+            <p id="a">Paragraf 4</p>
+            <div id="a">
+                <ul>
+                    <li>Item 1</li>
+                    <li>Item 2</li>
+                    <li>Item 3</li>
+                </ul>
+            </div>
+
+        </section>
+    </div>*@
+@*<p class="h2">Grid System</p>
+    <div class="row mt-3 text-justify">
+        <div class="col-6 paragraf1">
+            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+        </div>
+        <div class="col">
+            <div class="row text-justify">
+                <div class="col">
+                    Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+                    Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+                    <div class="col">
+                        Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+                        Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row pt-3 text-justify">
+        <div class="col">
+            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+        </div>
+        <div class="col">
+            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+        </div>
+    </div>
+    <div class="row pt-3 text-justify">
+        <div class="col">
+            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+        </div>
+    </div>
+    <a class="btn btn-primary" id="button">Button</a>*@
+@*<a href="#" class="button">Button</a>*@
+<h2 class="mt-3">Star Wars</h2>
+
+@*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Detailmodal">
+    </button>*@
+@*<ul id="listsw"></ul>*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nama</th>
+            <th>Tinggi</th>
+            <th>Gender</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="tablesw">
+    </tbody>
+</table>
+<div class="modal fade" id="detailmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="modalsw" class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/js/site.js" asp-append-version="true"></script>
+}

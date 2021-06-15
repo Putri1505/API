@@ -71,7 +71,8 @@ namespace API
             });
             services.AddCors(c =>
             {
-                c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://localhost:44310"));
+                //c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://localhost:44310"));
+                c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://localhost:44310").AllowAnyMethod().AllowCredentials().AllowAnyHeader());
             });
             services.AddControllers()
             .AddNewtonsoftJson(options =>
@@ -82,7 +83,7 @@ namespace API
             services.AddScoped<UniversityRepository>();
             services.AddScoped<ProfilingRepository>();
             services.AddScoped<RoleRepository>();
-            services.AddDbContext<MyContext>(options => 
+            services.AddDbContext<MyContext>(options =>
             options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("APIContext")));
             services.AddAuthentication(auth =>
             {
@@ -98,7 +99,7 @@ namespace API
                     ValidateAudience = false,
                     ValidAudience = Configuration["Jwt:Audience"],
                     ValidIssuer = Configuration["Jwt:Issuer"],
-                    IssuerSigningKey= new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["Jwt:Key"]))
                 };
 
             });
@@ -117,7 +118,8 @@ namespace API
 
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseCors(options => options.WithOrigins("https://localhost:44310"));
+            //app.UseCors(options => options.WithOrigins("https://localhost:44310"));
+            app.UseCors("AllowOrigin");
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>

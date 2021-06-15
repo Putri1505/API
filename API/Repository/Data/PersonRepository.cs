@@ -137,6 +137,33 @@ namespace API.Repository.Data
             }).ToList();
             return all.FirstOrDefault(p => p.NIK == nik);
         }
+        public int DeleteProfileById(int nik)
+        {
+            var person = myContext.Persons.Find(nik);
+            if (person != null)
+            {
+                myContext.Remove(person);
+                myContext.SaveChanges();
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        public int UpdateProfile(Person person)
+        {
+            try
+            {
+                myContext.Entry(person).State = EntityState.Modified;
+                var result = myContext.SaveChanges();
+                return result;
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw new DbUpdateConcurrencyException("Entity");
+            }
+        }
         public class Hashing
         {
             private static string GetRandomSalt()

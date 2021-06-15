@@ -1,0 +1,102 @@
+﻿/*h1 {
+    background-color: salmon;
+    width: 150px;
+    height: 150px;
+    position: static;
+    border: 3px solid #73AD21;
+}
+
+a {
+    background-color: aqua;
+    width: 150px;
+    height: 150px;
+    display: inline-block;
+    position: relative;
+    left: 30px;
+    border: 3px solid #73AD21;
+ }
+
+.navigasi {
+    background-color: pink;
+    position: static;
+    border: 3px solid #73AD21;
+}
+
+    .navigasi p {
+        background-color: red;
+    }*/
+/*div {
+    width: 150px;
+    height: 150px;
+}
+
+.satu {
+    background-color: salmon;
+    float:left;
+}
+
+.dua {
+    background-color: lawngreen;
+}
+
+.tiga {
+    background-color: yellow;
+}*/
+/**{
+    border: 2px solid #eeee;
+    padding: 15px;
+    margin: 15px;
+}
+html{
+    margin: 0;
+    padding: 0;
+}
+body{
+    max-width: 800px;
+    margin: 15px auto;
+}
+section#b #a{
+    color:green;
+}
+section#b #a ul li:nth-child(2):hover{
+    background-color:#808080;
+}*/
+.row {
+    /*grid-gap: 5px;
+    background-color: #8e5757;
+    */
+    padding: 5px;
+}
+.col {
+    /*background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    */
+    padding: 10px 0;
+}
+.col1 {
+    /*border: 5px solid #8e5757;*/
+    /*background-color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 10px 0;*/
+}
+/*.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}*/
+/*.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 20%;
+    background-color: #8e5757;
+    color: white;
+    text-align: center;
+}*/

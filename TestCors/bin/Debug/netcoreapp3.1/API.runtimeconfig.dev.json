@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\AmaeSchiffer\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\AmaeSchiffer\\.nuget\\packages"
+    ]
+  }
+}

@@ -49,7 +49,7 @@ namespace API.Controllers
             return BadRequest("Email atau Password tidak sesuai");
 
         }
-        [Authorize(Roles = "Admin, Karyawan")]
+        //[Authorize(Roles = "Admin, Karyawan")]
         [HttpGet("GetAllProfile")]
         public ActionResult GetAllProfile()
         {
@@ -63,7 +63,7 @@ namespace API.Controllers
                 return NotFound("Data tidak Ada");
             }
         }
-        [Authorize(Roles = "Admin, Karyawan")]
+        //[Authorize(Roles = "Admin, Karyawan")]
         [HttpGet("GetProfileById/{nik}")]
         [EnableCors("AllowOrigin")]
         public ActionResult GetProfileById(int nik)
@@ -72,6 +72,35 @@ namespace API.Controllers
             if (get != null)
             {
                 return Ok(get);
+            }
+            else
+            {
+                return NotFound("Data tidak Ada");
+            }
+        }
+        //[Authorize(Roles = "Admin, Karyawan")]
+        [EnableCors("AllowOrigin")]
+        [HttpPost("DeleteProfileById/{nik}")]
+        public ActionResult DeleteProfileById(int nik)
+        {
+            var delete = personRepository.DeleteProfileById(nik);
+            if (delete != 0)
+            {
+                return Ok("data terhapus");
+            }
+            else
+            {
+                return NotFound("Data tidak Ada");
+            }
+        }
+        [EnableCors("AllowOrigin")]
+        [HttpPut("UpdateProfile")]
+        public ActionResult UpdateProfile(Person person)
+        {
+            var update = personRepository.UpdateProfile(person);
+            if (update != 0)
+            {
+                return Ok("data terupdate");
             }
             else
             {
