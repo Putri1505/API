@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TestCors.Repositories.Data;
 using TestCors.Repositories.Interface;
 
 namespace TestCors.Base
@@ -12,10 +13,16 @@ namespace TestCors.Base
         where TRepository : IRepository<TEntity, TId>
     {
         private readonly TRepository repository;
+        private LoginRepository repository1;
 
         public BaseController(TRepository repository)
         {
             this.repository = repository;
+        }
+
+        public BaseController(LoginRepository repository1)
+        {
+            this.repository1 = repository1;
         }
 
         [HttpGet]

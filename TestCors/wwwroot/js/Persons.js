@@ -99,16 +99,6 @@ $(document).ready(function () {
 });
 
 function Insert() {
-    //bootstrapValidate('#inputfirstName', 'required:Kolom tidak boleh kosong');
-    //bootstrapValidate('#inputlastName', 'required:Kolom tidak boleh kosong');
-    //bootstrapValidate('#inputphone', 'required:Kolom tidak boleh kosong');
-    //bootstrapValidate('#inputbirthDate', 'required:Kolom tidak boleh kosong');
-    //bootstrapValidate('#inputsalary', 'required:Kolom tidak boleh kosong');
-    //bootstrapValidate('#inputpassword', 'min:8:password minimal 8 karakter');
-    //bootstrapValidate('#inputemail', 'email: masukan email yang valid dan belum pernah di pakai');
-    //bootstrapValidate('#inputdegree', 'required:Kolom tidak boleh kosong');
-    //bootstrapValidate('#inputgpa', 'required:Kolom tidak boleh kosong');
-    //bootstrapValidate('#inputuniversityid', 'required:Kolom tidak boleh kosong');
     var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
     obj.FirstName = $("#inputfirstName").val();
     obj.LastName = $("#inputlastName").val();
@@ -143,16 +133,33 @@ function Insert() {
             'error',
             'oops..',
             'error'
-        )//Swal.fire({
-        //    icon: 'error',
-        //    title: 'Oops...',
-        //    text: 'Something went wrong!',
-        //    footer: '<a href="">Why do I have this issue?</a>'
-        //})
-        //alert("data gagal")
+        )
     });
     return false;
 }
+
+    // Disable form submissions if there are invalid fields
+(function () {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+            form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()
+
+
 function Delete(id) {
     Swal.fire({
         title: 'Yakin ingin menghapus data?',

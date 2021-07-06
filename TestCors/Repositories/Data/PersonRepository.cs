@@ -42,5 +42,16 @@ namespace TestCors.Repositories.Data
             return entities;
             /// isi codingan kalian disini
         }
+        public async Task<RegisterVM> GetProfileById(int nik)
+        {
+            RegisterVM entity = new RegisterVM();
+            using (var response = await httpClient.GetAsync(request + "GetProfileById/" + nik))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entity = JsonConvert.DeserializeObject<RegisterVM>(apiResponse);
+            }
+            return entity;
+            /// isi codingan kalian disini
+        }
     }
 }

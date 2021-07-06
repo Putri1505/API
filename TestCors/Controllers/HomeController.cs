@@ -1,4 +1,5 @@
 ﻿using API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,6 +13,7 @@ using TestCors.Repositories.Data;
 
 namespace TestCors.Controllers
 {
+    [Authorize]
     public class HomeController : BaseController<Person, PersonRepository, int>
     {
         //private readonly ILogger<HomeController> _logger;
@@ -21,12 +23,12 @@ namespace TestCors.Controllers
         //    _logger = logger;
         //}
         PersonRepository repository;
-
+        
         public HomeController(PersonRepository repository) : base(repository)
         {
             this.repository = repository;
         }
-
+        
         public IActionResult Index()
         {
             return View();
@@ -36,11 +38,17 @@ namespace TestCors.Controllers
             var result = await repository.GetAllProfile();
             return Json(result);
         }
+        public async Task<JsonResult> GetProfileByid(int id)
+        {
+            var result = await repository.GetProfileById(id);
+            return Json(result);
+        }
 
         public IActionResult Privacy()
         {
             return View();
         }
+        
         public IActionResult Testing()
         {
             return View();
@@ -49,7 +57,12 @@ namespace TestCors.Controllers
         {
             return View();
         }
+        
         public IActionResult Persons()
+        {
+            return View();
+        }
+        public IActionResult Chart()
         {
             return View();
         }

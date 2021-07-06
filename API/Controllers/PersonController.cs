@@ -41,12 +41,28 @@ namespace API.Controllers
         [HttpPost("Login")]
         public ActionResult Login(LoginVM loginVM)
         {
-            var data = personRepository.LoginVM(loginVM);
-            if (data > 0)
+            var login = personRepository.LoginVM(loginVM);
+            if (login == 404)
             {
-                return Ok($"Login Berhasil \n Token : {personRepository.GenerateToken(loginVM)}");
+                return BadRequest("Email tidak ditemukan, Silahkan gunakan email lain");
             }
-            return BadRequest("Email atau Password tidak sesuai");
+            else if (login == 401)
+            {
+                return BadRequest("Password salah");
+            }
+            else if (login == 1)
+            {
+                return Ok(new JWTokenVM
+                {
+                    Token = personRepository.GenerateToken(loginVM),
+                    Messages = "Login Success"
+
+                });
+            }
+            else
+            {
+                return BadRequest("Gagal Login");
+            }
 
         }
         //[Authorize(Roles = "Admin, Karyawan")]
